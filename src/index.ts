@@ -22,19 +22,24 @@ export function createUseDispatch<S, T extends IReducers<S>>(store: Store<S, T>)
 
 export function createUseMappedState<S, T extends IReducers<S>>(store: Store<S, T>) {
   return function useMappedState<R>(mappedState: IMappedStateFunc<S, R>) {
-    const [state, setState] = React.useState(mappedState(store.State));
+    const savedMappedState = React.useRef(mappedState);
+    const [state, setState] = React.useState(savedMappedState.current(store.State));
     const lastState = React.useRef(state);
 
     React.useEffect(() => {
+      savedMappedState.current = mappedState;
+    }, [mappedState]);
+
+    React.useEffect(() => {
       const unSubscribe = store.subscribe(() => {
-        const nextState = mappedState(store.State);
+        const nextState = savedMappedState.current(store.State);
         if (!shallowEqual(lastState.current, nextState)) {
-          setState(mappedState(store.State));
+          setState(nextState);
         }
         lastState.current = nextState;
       });
       return () => unSubscribe();
-    });
+    }, []);
 
     return state;
   };
