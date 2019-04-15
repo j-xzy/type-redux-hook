@@ -24,8 +24,6 @@ export const useMappedState = createUseMappedState(store);
 import { useCommit, useDispatch, useMappedState } from './xxx';
 
 function Component() {
-  const commit = useCommit();
-  const dispatch = useDispatch();
   const dispatchAsync = useDispatch(true);
   const list = useMappedState((state) => state.list);
 
