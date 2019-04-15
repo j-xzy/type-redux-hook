@@ -1,13 +1,13 @@
-import { IState } from './index';
+import { IGetState } from './index';
 
-export function append(getState: () => IState, text: string) {
+export function append(getState: IGetState, text: string) {
   const state = getState();
   const maxId = state.maxId + 1;
-  const nextState: IState = { ...state, list: [...state.list, { id: maxId, text, done: false }], maxId };
+  const nextState = { ...state, list: [...state.list, { id: maxId, text, done: false }], maxId };
   return nextState;
 }
 
-export function toggle(getState: () => IState, id: number) {
+export function toggle(getState: IGetState, id: number) {
   const state = getState();
   let index = -1;
   const todo = state.list.find((item, idx) => {
@@ -29,7 +29,7 @@ export function toggle(getState: () => IState, id: number) {
   return { ...state, list };
 }
 
-export function deleteItem(getState: () => IState, id: number) {
+export function deleteItem(getState: IGetState, id: number) {
   let index = -1;
   const state = getState();
   const todo = state.list.find((item, idx) => {
@@ -46,4 +46,12 @@ export function deleteItem(getState: () => IState, id: number) {
   const list = [...state.list];
   list.splice(index, 1);
   return { ...state, list };
+}
+
+export function status(getState: IGetState, text: string) {
+  return { ...getState(), status: text };
+}
+
+export function url(getState: IGetState, payload: string) {
+  return { ...getState(), url: payload };
 }

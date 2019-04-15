@@ -3,7 +3,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  entry: './demo/index.tsx',
+  entry: './index.tsx',
   mode: 'development',
   devtool: 'source-map',
   devServer: {
@@ -26,44 +26,13 @@ module.exports = {
             }
           }
         ]
-      }, {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
-      }, {
-        test: /\.styl$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'stylus-loader'
-        ]
-      }, {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 8192,
-            name: 'static/img/[name].[hash:7].[ext]'
-          }
-        }
-      }, {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 8192,
-            name: 'static/fonts/[name].[hash:7].[ext]'
-          }
-        }
       }
     ]
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      template: './demo/index.html',
+      template: './index.html',
       title: 'example'
     })
   ]

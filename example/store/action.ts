@@ -1,16 +1,17 @@
 import { ICtx, IListItem } from './index';
 
 export async function getListAsync(ctx: ICtx) {
-  const result: string[] = await fetch('http://localhost:3000', { method: 'GET' }).then((data) => data.json());
-  const state = ctx.getState();
-  let maxId = state.maxId;
-  const newList: IListItem[] = result.map((text) => {
-    maxId += 1;
-    return {
-      text,
-      done: false,
-      id: maxId
-    };
+  await ctx.dispatch('fetchRepurl');
+  ctx.commit('status', 'fetch repos');
+  const reps = await fetch(ctx.getState().url).then((raw) => raw.json());
+  ctx.commit('status', 'done');
+  reps.forEach(({ name }: any) => {
+    ctx.commit('append', name);
   });
-  return { ...state, list: [...state.list, ...newList], maxId };
+}
+
+export async function fetchRepurl(ctx: ICtx) {
+  ctx.commit('status', 'fetch repos_url...');
+  const user = await fetch('https://api.github.com/users/whj1995').then((raw) => raw.json());
+  ctx.commit('url', user.repos_url);
 }

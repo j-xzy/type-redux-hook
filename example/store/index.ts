@@ -1,5 +1,5 @@
 import { createStore } from 'type-redux';
-import { createUseCommit, createUseDispatch, createUseMappedState } from '../../src';
+import { createUseMappedState } from '../../src';
 import * as actions from './action';
 import * as mutations from './mutation';
 
@@ -11,8 +11,9 @@ export interface IListItem {
 
 const initialState = {
   list: [] as IListItem[],
+  url: '',
   maxId: 0,
-  noreRender: 'noreRender'
+  status: ''
 };
 
 const reducers = { mutations, actions };
@@ -20,8 +21,8 @@ const reducers = { mutations, actions };
 const store = createStore(initialState, reducers);
 
 export const useMappedState = createUseMappedState(store);
-export const useDispatch = createUseDispatch<IActions>(store);
-export const useCommit = createUseCommit<IMutations>(store);
+export const commit = store.commit;
+export const dispatch = store.dispatch;
 
 export type IState = typeof initialState;
 export type IGetState = () => IState;

@@ -2,11 +2,11 @@
   "name": "simple",
   "version": "0.0.0",
   "scripts": {
-    "start": "node ./build/server.js"
+    "start": "webpack-dev-server --open"
   },
   "license": "MIT",
   "dependencies": {
-    "redux-logger": "4.0.0"
+    "type-redux": "^1.0.1"
   },
   "devDependencies": {
     "body-parser": "1.18.3",
@@ -16,10 +16,10 @@
     "html-webpack-plugin": "^3.2.0",
     "ts-loader": "^5.3.3",
     "tslint": "^5.12.0",
-    "tslint-loader": "^3.6.0",
+    "tslint-loader": "^3.5.4",
     "typescript": "^3.3.3",
     "webpack": "^4.29.0",
     "webpack-cli": "^3.2.1",
-    "webpack-dev-middleware": "^3.6.0"
+    "webpack-dev-server": "^3.3.1"
   }
 }
