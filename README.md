@@ -7,14 +7,14 @@ npm install type-redux  type-redux-hook
 ## 使用
 
 ``` ts
-import { createUseDispatch, createUseCommit, createUseMappedState } from 'type-redux-hook';
+import { createUseMappedState } from 'type-redux-hook';
 import { createStore } from 'type-redux';
 
 const store = createStore(todo, state);
 
-export const useCommit = createUseCommit(store);
+export const useCommit = store.commit(store);
 
-export const useDispatch = createUseDispatch(store);
+export const useDispatch = store.dispatch(store);
 
 export const useMappedState = createUseMappedState(store);
 
