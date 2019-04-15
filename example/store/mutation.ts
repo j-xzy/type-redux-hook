@@ -1,12 +1,14 @@
-import { IListItem, IState } from './index';
+import { IState } from './index';
 
-export function append(text: string, state: IState) {
+export function append(getState: () => IState, text: string) {
+  const state = getState();
   const maxId = state.maxId + 1;
   const nextState: IState = { ...state, list: [...state.list, { id: maxId, text, done: false }], maxId };
   return nextState;
 }
 
-export function toggle(id: number, state: IState) {
+export function toggle(getState: () => IState, id: number) {
+  const state = getState();
   let index = -1;
   const todo = state.list.find((item, idx) => {
     if (item.id === id) {
@@ -27,8 +29,9 @@ export function toggle(id: number, state: IState) {
   return { ...state, list };
 }
 
-export function deleteItem(id: number, state: IState) {
+export function deleteItem(getState: () => IState, id: number) {
   let index = -1;
+  const state = getState();
   const todo = state.list.find((item, idx) => {
     if (item.id === id) {
       index = idx;
@@ -43,19 +46,4 @@ export function deleteItem(id: number, state: IState) {
   const list = [...state.list];
   list.splice(index, 1);
   return { ...state, list };
-}
-
-export async function getListAsync(_data: null, getState: () => IState): Promise<IState> {
-  const result: string[] = await fetch('http://localhost:3000', { method: 'GET' }).then((data) => data.json());
-  const state = getState();
-  let maxId = state.maxId;
-  const newList: IListItem[] = result.map((text) => {
-    maxId += 1;
-    return {
-      text,
-      done: false,
-      id: maxId
-    };
-  });
-  return { ...state, list: [...state.list, ...newList], maxId };
 }

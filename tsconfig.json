@@ -27,7 +27,8 @@
     "jsx": "react",
     "typeRoots": [
       "./src",
-      "./node_modules/@types"
+      "./node_modules/@types",
+      "./node_modules/type-redux/interface"
     ],
   },
   "include": [
