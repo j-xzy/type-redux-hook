@@ -21,7 +21,7 @@ export const useMappedState = createUseMappedState(store);
 ```
 
 ``` ts
-import { useCommit, useDispatch, useMappedState } from './xxx';
+import { commit, dispatch, useMappedState } from './xxx';
 
 function Component() {
   const dispatchAsync = useDispatch(true);
