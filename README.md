@@ -1,5 +1,7 @@
 # type-redux的react-hook
 
+[![npm version](https://badge.fury.io/js/type-redux-hook.svg)](https://badge.fury.io/js/type-redux-hook)
+
 ```
 npm install type-redux  type-redux-hook
 ```
@@ -10,13 +12,13 @@ npm install type-redux  type-redux-hook
 import { createUseMappedState } from 'type-redux-hook';
 import { createStore } from 'type-redux';
 
+...
+
 const store = createStore(todo, state);
 
-export const useCommit = store.commit(store);
-
-export const useDispatch = store.dispatch(store);
-
 export const useMappedState = createUseMappedState(store);
+export const commit = store.commit;
+export const dispatch = store.dispatch;
 
 ```
 
@@ -24,9 +26,6 @@ export const useMappedState = createUseMappedState(store);
 import { commit, dispatch, useMappedState } from './xxx';
 
 function Component() {
-  const dispatchAsync = useDispatch(true);
-  const list = useMappedState((state) => state.list);
-
   return <div onClick={() => dispatch('xxx', 'xxx')} ></div>;
 }
 ```
