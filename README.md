@@ -24,8 +24,8 @@ export const dispatch = store.dispatch;
 
 ``` ts
 import { commit, dispatch, useMappedState } from './xxx';
-
 function Component() {
+  const { list, maxId } = useMappedState((state) => ({ list: state.list, maxId: state.maxId }));
   return <div onClick={() => dispatch('xxx', 'xxx')} ></div>;
 }
 ```
