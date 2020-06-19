@@ -6,8 +6,8 @@ import { shallowEqual } from './util';
 
 type IMappedStateFunc<S, R> = (state: S) => R;
 
-export function createUseMappedState<S>(store: TypeRedux.IStore<S, any, any>) {
-  return function useMappedState<R>(mappedState: IMappedStateFunc<S, R>) {
+export function createUseSelector<S>(store: TypeRedux.IStore<S, any, any>) {
+  return function useSelector<R>(mappedState: IMappedStateFunc<S, R>) {
     const savedMappedState = React.useRef(mappedState);
     const [state, setState] = React.useState(savedMappedState.current(store.getState()));
     const lastState = React.useRef(state);

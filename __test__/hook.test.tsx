@@ -2,15 +2,15 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { createStore } from 'type-redux';
-import { createUseMappedState } from '../src';
+import { createUseSelector } from '../src';
 
-describe('useMappedState', () => {
+describe('useSelector', () => {
   let store = createStore({ one: 1, two: 2 }, {
     mutations: { mut: () => ({ one: 2, two: 3 }) },
     actions: {}
   });
 
-  let useMappedState = createUseMappedState(store);
+  let useSelector = createUseSelector(store);
 
   let fn = jest.fn();
 
@@ -27,7 +27,7 @@ describe('useMappedState', () => {
   }
 
   function Comp(props: any) {
-    const { dynamic } = useMappedState((s) => ({ dynamic: s[props.name] }));
+    const { dynamic } = useSelector((s) => ({ dynamic: s[props.name] }));
     fn(dynamic);
     return null;
   }
@@ -41,7 +41,7 @@ describe('useMappedState', () => {
       mutations: { mut: () => ({ one: 2, two: 3 }) },
       actions: {}
     });
-    useMappedState = createUseMappedState(store);
+    useSelector = createUseSelector(store);
     fn = jest.fn();
   });
 
@@ -49,7 +49,7 @@ describe('useMappedState', () => {
     document.body.removeChild(container);
     container = null;
     store = null;
-    useMappedState = null;
+    useSelector = null;
     fn = null;
   });
 

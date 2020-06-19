@@ -1,5 +1,5 @@
 import { createStore } from 'type-redux';
-import { createUseMappedState } from '../../src';
+import { createUseSelector } from '../../src';
 import * as actions from './action';
 import * as mutations from './mutation';
 
@@ -20,7 +20,7 @@ const reducers = { mutations, actions };
 
 const store = createStore(initialState, reducers);
 
-export const useMappedState = createUseMappedState(store);
+export const useSelector = createUseSelector(store);
 export const commit = store.commit;
 export const dispatch = store.dispatch;
 
